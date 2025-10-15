@@ -1,0 +1,39 @@
+{
+  "name": "sivabharathi-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Sivabharathi M - AI & ML Developer",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "ai",
+    "machine-learning",
+    "developer",
+    "responsive",
+    "dark-theme",
+    "light-theme"
+  ],
+  "author": "Sivabharathi M",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sivabharathi/portfolio"
+  },
+  "homepage": "https://sivabharathi.github.io/portfolio",
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "emailjs": "^3.11.0"
+  },
+  "devDependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
