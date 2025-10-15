@@ -20,14 +20,14 @@
     <div id="particles-container"></div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar" role="navigation" aria-label="Primary">
         <div class="nav-container">
             <div class="nav-logo">
                 <span class="logo-text">SM</span>
             </div>
             
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#home" class="nav-link" aria-current="page">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -49,7 +49,7 @@
     </nav>
 
     <!-- Hero Section -->
-   <center></center> <section id="home" class="hero">
+    <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-avatar">
                 <div class="avatar-circle">
@@ -77,16 +77,16 @@
             </div>
             
             <div class="hero-social">
-                <a href="mailto:rmbharathi521@gmail.com" class="social-link">
+                <a href="mailto:rmbharathi521@gmail.com" class="social-link" aria-label="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-                <a href="tel:9715708383" class="social-link">
+                <a href="tel:+919715708383" class="social-link" aria-label="Phone">
                     <i class="fas fa-phone"></i>
                 </a>
-                <a href="#" class="social-link">
+                <a href="https://linkedin.com/in/siva-bharathi-m-b90339296" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="#" class="social-link">
+                <a href="#" class="social-link" aria-label="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -95,7 +95,7 @@
         <div class="scroll-indicator">
             <i class="fas fa-chevron-down"></i>
         </div>
-    </section></center>
+    </section>
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -149,6 +149,78 @@
             </div>
         </div>
     </section>
+
+    <!-- Hidden Resume Template for PDF Generation -->
+    <div id="resume-offscreen" class="resume-offscreen" aria-hidden="true">
+        <header>
+            <h1 style="margin:0">SIVABHARATHI M</h1>
+            <div style="font-size:12px; color:#334155; margin-top:4px;">
+                B.Sc. Computer Science (AI & ML) | NGM College, Pollachi | 2022–2025 | CGPA 7.59 (6 Sem)
+            </div>
+            <div style="font-size:12px; color:#334155; margin-top:4px;">
+                Email: rmbharathi521@gmail.com | Phone: +91 97157 08383 | Location: 2/45A, Ravanapuram, Udmalpet | LinkedIn: linkedin.com/in/siva-bharathi-m-b90339296
+            </div>
+            <hr style="margin:12px 0; border:none; border-top:1px solid #e2e8f0;"/>
+        </header>
+
+        <section class="resume-section">
+            <h2>Executive Summary</h2>
+            <p>I am Sivabharathi, a B.Sc. Computer Science graduate specializing in Artificial Intelligence and Machine Learning from NGM College, Pollachi. Experienced in building practical AI solutions including a banking chatbot (NLP) and a worker attendance app using image and location data.</p>
+        </section>
+
+        <section class="resume-section">
+            <h2>Skills</h2>
+            <div class="resume-grid">
+                <div>
+                    <strong>Technical</strong>
+                    <ul>
+                        <li>AI & ML, Data Science</li>
+                        <li>Python, HTML/CSS/JavaScript</li>
+                        <li>Software Development</li>
+                        <li>Computer Vision, NLP</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Core</strong>
+                    <ul>
+                        <li>Problem solving, Analytics</li>
+                        <li>Project management, Critical thinking</li>
+                        <li>UI/UX, Creativity, Adaptability</li>
+                        <li>Game development</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-section">
+            <h2>Achievements</h2>
+            <ul>
+                <li>Completed multiple AI projects during academics and personal time.</li>
+                <li>Trained a custom neural network model for chatbot and other AI tasks.</li>
+                <li>Created and managed a gaming channel with engaging content.</li>
+                <li>Built a mobile attendance app using face and GPS.</li>
+                <li>Developed a banking chatbot using NLP.</li>
+            </ul>
+        </section>
+
+        <section class="resume-section">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>B.Sc. Computer Science (AI & ML)</strong>, NGM College, Pollachi — 2022–2025, CGPA 7.59 (6 Sem)</li>
+                <li><strong>HSC</strong>, RKR GNANODHAYA HR.SEC School, Kodinigam — 2022</li>
+                <li><strong>SSLC</strong>, RKR GNANODHAYA HR.SEC School, Kodinigam — 2020</li>
+            </ul>
+        </section>
+
+        <section class="resume-section">
+            <h2>Languages</h2>
+            <p>Tamil, English, Basic Hindi</p>
+        </section>
+
+        <footer style="margin-top:12px; font-size:11px; color:#64748b;">
+            Declaration: I hereby declare that the information provided above is true to the best of my knowledge and belief.
+        </footer>
+    </div>
 
     <!-- Skills Section -->
     <section id="skills" class="skills">
@@ -534,6 +606,32 @@
         </div>
     </footer>
 
+    <!-- AI Assistant Floating Widget -->
+    <button id="ai-toggle" class="ai-toggle-btn" aria-label="Open AI assistant" title="Ask my AI">
+        <i class="fas fa-comments"></i>
+    </button>
+    <div id="ai-widget" class="ai-widget" role="dialog" aria-modal="false" aria-labelledby="ai-title">
+        <div class="ai-header">
+            <h4 id="ai-title">Ask my AI</h4>
+            <div>
+                <button id="ai-settings" class="theme-toggle" title="Settings"><i class="fas fa-gear"></i></button>
+                <button id="ai-close" class="theme-toggle" aria-label="Close"><i class="fas fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="ai-body" id="ai-body" aria-live="polite"></div>
+        <div class="ai-hints" id="ai-hints">
+            <span class="hint">What projects have you built?</span>
+            <span class="hint">What are your core skills?</span>
+            <span class="hint">Tell me about education</span>
+        </div>
+        <div class="ai-footer">
+            <input id="ai-input" type="text" placeholder="Ask about me..." aria-label="Ask about my profile">
+            <button id="ai-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
 </body>
