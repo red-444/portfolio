@@ -77,11 +77,15 @@ class NavigationManager {
 
 // Typing Animation
 class TypingAnimation {
-    constructor() {
-        this.element = document.getElementById('typing-text');
-        this.texts = [
+            this.texts = [
             'AI/ML Developer',
-            'Computer Science Student',
+            'Computer Science Graduate',
+            'Neural Network Specialist',
+            'Problem Solver',
+            'Innovation Enthusiast',
+            'Gaming Content Creator',
+            'Tech Innovator'
+        ];dent',
             'Problem Solver',
             'Innovation Enthusiast'
         ];
@@ -238,18 +242,7 @@ class AnimationObserver {
     }
 }
 
-// Contact Form Handler
-class ContactForm {
-    constructor() {
-        this.form = document.getElementById('contact-form');
-        this.init();
-    }
-
-    init() {
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    }
-
-    async handleSubmit(e) {
+// Conta    async handleSubmit(e) {
         e.preventDefault();
         
         const formData = new FormData(this.form);
@@ -262,14 +255,36 @@ class ContactForm {
         submitBtn.disabled = true;
 
         try {
-            // Simulate form submission (replace with actual API call)
-            await this.simulateFormSubmission(data);
+            // Create email content
+            const emailSubject = encodeURIComponent(`Portfolio Contact: ${data.subject}`);
+            const emailBody = encodeURIComponent(`
+Name: ${data.name}
+Email: ${data.email}
+Subject: ${data.subject}
+
+Message:
+${data.message}
+
+---
+Sent from Sivabharathi M's Portfolio Website
+            `);
+            
+            // Open email client with pre-filled content
+            const mailtoLink = `mailto:rmbharathi521@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+            window.open(mailtoLink);
             
             // Show success message
-            this.showNotification('Message sent successfully!', 'success');
+            this.showNotification('Email client opened! Please send the message from your email app.', 'success');
             this.form.reset();
         } catch (error) {
             // Show error message
+            this.showNotification('Error opening email client. Please try again.', 'error');
+        } finally {
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    }          // Show error message
             this.showNotification('Error sending message. Please try again.', 'error');
         } finally {
             // Reset button
@@ -498,16 +513,12 @@ class PerformanceOptimizer {
         const originalScroll = window.onscroll;
         
         window.onscroll = () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                if (originalScroll) originalScroll();
-            }, 10);
-        };
-    }
-
-    preloadResources() {
-        // Preload fonts
-        const fontPreload = document.createElement('link');
+            clearTimeout(scrollTimeou// Resume Download Function
+function downloadResume() {
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = 'assets/resume.html';
+    link.download = 'Sivabharathi_M_Resume.html';k');
         fontPreload.rel = 'preload';
         fontPreload.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap';
         fontPreload.as = 'style';
@@ -554,26 +565,123 @@ function downloadResume() {
 // Add slide animations to CSS
 const slideAnimations = `
     <style>
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
+        @keyframe// AI-Enhanced Features
+class AIFeatures {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.addSmartGreeting();
+        this.addInteractiveElements();
+        this.addProfessionalTips();
+    }
+
+    addSmartGreeting() {
+        const hour = new Date().getHours();
+        let greeting = 'Hello';
+        
+        if (hour < 12) greeting = 'Good Morning';
+        else if (hour < 18) greeting = 'Good Afternoon';
+        else greeting = 'Good Evening';
+        
+        // Add greeting to hero section
+        const heroDescription = document.querySelector('.hero-description');
+        if (heroDescription) {
+            const originalText = heroDescription.textContent;
+            heroDescription.textContent = `${greeting}! ${originalText}`;
         }
-        @keyframes slideOutRight {
-            from { transform: translateX(0); }
-            to { transform: translateX(100%); }
-        }
-        .nav-link.active {
-            color: var(--primary-color) !important;
-        }
-        .nav-link.active::after {
-            width: 100% !important;
-        }
-    </style>
-`;
-document.head.insertAdjacentHTML('beforeend', slideAnimations);
+    }
+
+    addInteractiveElements() {
+        // Add hover effects to project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+
+    addProfessionalTips() {
+        // Add tooltips to skill bars
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const skillName = bar.closest('.skill-item').querySelector('.skill-header span:first-child').textContent;
+            bar.title = `${skillName} - Click to learn more about my experience`;
+        });
+    }
+}
+
+// Professional Analytics
+class ProfessionalAnalytics {
+    constructor() {
+        this.visitStartTime = Date.now();
+        this.init();
+    }
+
+    init() {
+        this.trackVisitDuration();
+        this.trackScrollDepth();
+        this.trackInteractions();
+    }
+
+    trackVisitDuration() {
+        window.addEventListener('beforeunload', () => {
+            const duration = Date.now() - this.visitStartTime;
+            console.log(`Visit duration: ${Math.round(duration / 1000)} seconds`);
+        });
+    }
+
+    trackScrollDepth() {
+        let maxScrollDepth = 0;
+        window.addEventListener('scroll', () => {
+            const scrollDepth = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+            }
+        });
+    }
+
+    trackInteractions() {
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.btn, .project-btn, .download-btn, .submit-btn')) {
+                console.log(`Button clicked: ${e.target.textContent.trim()}`);
+            }
+        });
+    }
+}
 
 // Initialize all components when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize loading animation first
+    new LoadingAnimation();
+    
+    // Initialize core components
+    new ThemeManager();
+    new NavigationManager();
+    new TypingAnimation();
+    new ParticlesBackground();
+    new SmoothScrolling();
+    new AnimationObserver();
+    new ContactForm();
+    new ScrollProgress();
+    new ActiveSectionHighlighter();
+    new PerformanceOptimizer();
+    
+    // Initialize AI-enhanced features
+    new AIFeatures();
+    new ProfessionalAnalytics();
+    
+    // Add some entrance animations
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});ded', () => {
     // Initialize loading animation first
     new LoadingAnimation();
     
