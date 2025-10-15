@@ -238,18 +238,7 @@ class AnimationObserver {
     }
 }
 
-// Contact Form Handler
-class ContactForm {
-    constructor() {
-        this.form = document.getElementById('contact-form');
-        this.init();
-    }
-
-    init() {
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    }
-
-    async handleSubmit(e) {
+// Conta    async handleSubmit(e) {
         e.preventDefault();
         
         const formData = new FormData(this.form);
@@ -262,18 +251,35 @@ class ContactForm {
         submitBtn.disabled = true;
 
         try {
-            // Simulate form submission (replace with actual API call)
-            await this.simulateFormSubmission(data);
+            // Create mailto link with form data
+            const subject = encodeURIComponent(data.subject || 'Portfolio Contact');
+            const body = encodeURIComponent(
+                `Name: ${data.name}\n` +
+                `Email: ${data.email}\n\n` +
+                `Message:\n${data.message}`
+            );
+            const mailtoLink = `mailto:rmbharathi521@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
             
             // Show success message
-            this.showNotification('Message sent successfully!', 'success');
-            this.form.reset();
+            setTimeout(() => {
+                this.showNotification('Opening your email client...', 'success');
+                this.form.reset();
+            }, 500);
+            
         } catch (error) {
             // Show error message
             this.showNotification('Error sending message. Please try again.', 'error');
         } finally {
-            // Reset button
-            submitBtn.innerHTML = originalText;
+            // Reset button after a delay
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        }
+    }        submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
     }
@@ -498,39 +504,36 @@ class PerformanceOptimizer {
         const originalScroll = window.onscroll;
         
         window.onscroll = () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                if (originalScroll) originalScroll();
-            }, 10);
-        };
-    }
-
-    preloadResources() {
-        // Preload fonts
-        const fontPreload = document.createElement('link');
-        fontPreload.rel = 'preload';
-        fontPreload.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap';
-        fontPreload.as = 'style';
-        document.head.appendChild(fontPreload);
-    }
-}
-
-// Resume Download Function
+            clearTimeout(scrollTimeou// Resume Download Function
 function downloadResume() {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = 'attached_assets/SIVABHARATHI M_1750335921289.pdf';
-    link.download = 'Sivabharathi_M_Resume.pdf';
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open resume in new window for download/print
+    window.open('resume.html', '_blank');
     
     // Show notification
     const notification = document.createElement('div');
-    notification.textContent = 'Resume download started!';
+    notification.textContent = '📄 Resume opened! You can download it as PDF by printing (Ctrl/Cmd + P)';
     notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        max-width: 350px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    `;
+    
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 5000);
+}e.cssText = `
         position: fixed;
         bottom: 20px;
         right: 20px;
