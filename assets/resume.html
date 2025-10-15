@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivabharathi M - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 20px;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            color: #3b82f6;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .summary {
+            text-align: justify;
+            line-height: 1.7;
+            color: #475569;
+        }
+        
+        .education-item, .project-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+        
+        .degree, .project-title {
+            font-weight: bold;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+        
+        .institution, .project-tech {
+            color: #3b82f6;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .period, .project-year {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .grade {
+            background: #3b82f6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .skill-category h4 {
+            color: #3b82f6;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .achievements li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .achievements li::before {
+            content: "•";
+            color: #3b82f6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .languages {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .language {
+            text-align: center;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .language strong {
+            color: #3b82f6;
+        }
+        
+        @media print {
+            body {
+                padding: 20px;
+                font-size: 12px;
+            }
+            .name {
+                font-size: 2rem;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="name">SIVABHARATHI M</h1>
+        <p class="title">B.Sc. Computer Science with Artificial Intelligence & Machine Learning</p>
+        <div class="contact-info">
+            <span>📧 rmbharathi521@gmail.com</span>
+            <span>📞 +91 9715708383</span>
+            <span>📍 2/45A, Ravanapuram, Udmalpet</span>
+            <span>💼 linkedin.com/in/siva-bharathi-m-b90339296</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">EXECUTIVE SUMMARY</h2>
+        <p class="summary">
+            I am Sivabharathi, a B.Sc Computer Science graduate specializing in Artificial Intelligence and Machine Learning from NGM College, Pollachi. With experience in projects like banking chatbots and attendance systems, I have trained custom neural network models and developed innovative solutions. I have also created and managed a gaming channel, engaging with a growing audience by producing entertaining and high-quality content.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">EDUCATION</h2>
+        <div class="education-item">
+            <div class="degree">B.Sc. Computer Science (AI & ML)</div>
+            <div class="institution">NGM College, Pollachi</div>
+            <div class="period">2022 – 2025</div>
+            <div class="grade">CGPA: 7.59 (6 Semesters)</div>
+        </div>
+        <div class="education-item">
+            <div class="degree">Higher Secondary Certificate (HSC)</div>
+            <div class="institution">RKR GNANODHAYA HR.SEC School, Kodinigam</div>
+            <div class="period">2022</div>
+        </div>
+        <div class="education-item">
+            <div class="degree">Secondary School Leaving Certificate (SSLC)</div>
+            <div class="institution">RKR GNANODHAYA HR.SEC School, Kodinigam</div>
+            <div class="period">2020</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">TECHNICAL SKILLS & COMPETENCIES</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4>Technical Skills</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Artificial Intelligence</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Python Programming</span>
+                    <span class="skill-tag">Natural Language Processing</span>
+                    <span class="skill-tag">Mobile App Development</span>
+                    <span class="skill-tag">Data Science</span>
+                    <span class="skill-tag">HTML/CSS/JavaScript</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Core Competencies</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Analytics</span>
+                    <span class="skill-tag">Critical Thinking</span>
+                    <span class="skill-tag">Game Development</span>
+                    <span class="skill-tag">Project Management</span>
+                    <span class="skill-tag">Creative Thinking</span>
+                    <span class="skill-tag">UI/UX Design</span>
+                    <span class="skill-tag">Adaptability</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">KEY PROJECTS</h2>
+        <div class="project-item">
+            <div class="project-title">AI Banking Chatbot with NLP</div>
+            <div class="project-tech">Natural Language Processing | Machine Learning | Python</div>
+            <div class="project-year">2024</div>
+            <p>Developed a sophisticated chatbot tailored for the banking sector using NLP and trained custom neural network models to enhance customer service and transaction processing.</p>
+        </div>
+        <div class="project-item">
+            <div class="project-title">Smart Attendance Tracking System</div>
+            <div class="project-tech">Mobile Development | Computer Vision | GPS Integration</div>
+            <div class="project-year">2024</div>
+            <p>Built a comprehensive mobile application for tracking worker attendance using advanced image recognition technology and GPS location data for accurate workforce management.</p>
+        </div>
+        <div class="project-item">
+            <div class="project-title">Custom Neural Network Framework</div>
+            <div class="project-tech">PyTorch | Deep Learning | Python</div>
+            <div class="project-year">2023</div>
+            <p>Implemented and trained a custom neural network model using PyTorch framework for various AI applications including chatbot enhancement and pattern recognition.</p>
+        </div>
+        <div class="project-item">
+            <div class="project-title">Gaming Channel Management</div>
+            <div class="project-tech">Content Creation | Video Editing | Community Management</div>
+            <div class="project-year">2023-2024</div>
+            <p>Created and managed a successful gaming channel, engaging with a growing audience by producing high-quality, entertaining content and building a community of gaming enthusiasts.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">ACHIEVEMENTS</h2>
+        <div class="achievements">
+            <ul>
+                <li>Initiated and completed multiple AI-based projects within academic and personal timeframes</li>
+                <li>Trained a custom neural network model to assist in chatbot development and other AI tasks</li>
+                <li>Created and managed a gaming channel, engaging with a growing audience by producing entertaining and high-quality content</li>
+                <li>Built a mobile application for tracking worker attendance using image and location data</li>
+                <li>Developed a chatbot tailored for the banking sector using Natural Language Processing (NLP)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">LANGUAGES</h2>
+        <div class="languages">
+            <div class="language">
+                <strong>Tamil</strong><br>
+                <span>Native</span>
+            </div>
+            <div class="language">
+                <strong>English</strong><br>
+                <span>Fluent</span>
+            </div>
+            <div class="language">
+                <strong>Hindi</strong><br>
+                <span>Basic</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">DECLARATION</h2>
+        <p class="summary">
+            I hereby declare that the information provided above is true to the best of my knowledge and belief. I take full responsibility for the accuracy of the details mentioned.
+        </p>
+    </div>
+</body>
+</html>
