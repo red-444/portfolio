@@ -254,6 +254,10 @@ class ContactForm {
         
         const formData = new FormData(this.form);
         const data = Object.fromEntries(formData.entries());
+        if (!this.validate(data)) {
+            this.showNotification('Please fix the highlighted fields.', 'error');
+            return;
+        }
         
         // Show loading state
         const submitBtn = this.form.querySelector('.submit-btn');
@@ -262,12 +266,8 @@ class ContactForm {
         submitBtn.disabled = true;
 
         try {
-            // Simulate form submission (replace with actual API call)
-            await this.simulateFormSubmission(data);
-            
-            // Show success message
-            this.showNotification('Message sent successfully!', 'success');
-            this.form.reset();
+            await this.sendMailto(data);
+            this.showNotification('Opening your email client...', 'success');
         } catch (error) {
             // Show error message
             this.showNotification('Error sending message. Please try again.', 'error');
@@ -278,11 +278,39 @@ class ContactForm {
         }
     }
 
-    async simulateFormSubmission(data) {
-        // Simulate API call delay
-        return new Promise((resolve) => {
-            setTimeout(resolve, 2000);
-        });
+    validate(data) {
+        let ok = true;
+        const nameInput = this.form.querySelector('#name');
+        const emailInput = this.form.querySelector('#email');
+        const subjectInput = this.form.querySelector('#subject');
+        const messageInput = this.form.querySelector('#message');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const setValidity = (input, valid) => {
+            input.classList.toggle('invalid', !valid);
+        };
+
+        setValidity(nameInput, data.name.trim().length >= 2);
+        setValidity(emailInput, emailRegex.test(data.email));
+        setValidity(subjectInput, data.subject.trim().length >= 3);
+        setValidity(messageInput, data.message.trim().length >= 10);
+
+        ok = ![
+            nameInput, emailInput, subjectInput, messageInput
+        ].some(el => el.classList.contains('invalid'));
+
+        return ok;
+    }
+
+    async sendMailto(data) {
+        const subject = encodeURIComponent(`[Portfolio] ${data.subject} - from ${data.name}`);
+        const body = encodeURIComponent(
+            `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`
+        );
+        const mailto = `mailto:rmbharathi521@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+        return Promise.resolve();
     }
 
     showNotification(message, type) {
@@ -515,40 +543,22 @@ class PerformanceOptimizer {
     }
 }
 
-// Resume Download Function
+// Resume Download Function (HTML -> PDF)
 function downloadResume() {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = 'attached_assets/SIVABHARATHI M_1750335921289.pdf';
-    link.download = 'Sivabharathi_M_Resume.pdf';
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show notification
-    const notification = document.createElement('div');
-    notification.textContent = 'Resume download started!';
-    notification.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: var(--primary-color);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        z-index: 10000;
-        animation: slideInRight 0.3s ease;
-    `;
-    
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
+    const resumeEl = document.getElementById('resume-offscreen');
+    if (!resumeEl) return;
+
+    const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     'Sivabharathi_M_Resume.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(resumeEl).save();
+
+    showToast('Generating resume PDF...');
 }
 
 // Add slide animations to CSS
@@ -588,6 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ScrollProgress();
     new ActiveSectionHighlighter();
     new PerformanceOptimizer();
+    new AIAssistant();
     
     // Add some entrance animations
     setTimeout(() => {
@@ -636,4 +647,105 @@ if ('serviceWorker' in navigator) {
                 console.log('SW registration failed: ', registrationError);
             });
     });
+}
+
+// Simple toast helper
+function showToast(text, type = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = text;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : 'var(--primary-color)'};
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        z-index: 10000;
+        animation: slideInRight 0.2s ease;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.2s ease';
+        setTimeout(() => toast.remove(), 220);
+    }, 2500);
+}
+
+// --- AI Assistant Widget ---
+class AIAssistant {
+    constructor() {
+        this.toggleBtn = document.getElementById('ai-toggle');
+        this.widget = document.getElementById('ai-widget');
+        this.body = document.getElementById('ai-body');
+        this.input = document.getElementById('ai-input');
+        this.sendBtn = document.getElementById('ai-send');
+        this.closeBtn = document.getElementById('ai-close');
+        this.hints = document.getElementById('ai-hints');
+        this.profile = this.buildProfileFacts();
+        this.init();
+    }
+
+    init() {
+        if (!this.toggleBtn || !this.widget) return;
+        this.toggleBtn.addEventListener('click', () => this.open());
+        this.closeBtn?.addEventListener('click', () => this.close());
+        this.sendBtn?.addEventListener('click', () => this.handleSend());
+        this.input?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') this.handleSend();
+        });
+        this.hints?.addEventListener('click', (e) => {
+            const hint = e.target.closest('.hint');
+            if (!hint) return;
+            this.input.value = hint.textContent;
+            this.handleSend();
+        });
+        // Welcome message
+        this.addMessage('bot', "Hi! I'm an AI assistant trained on Sivabharathi's profile. Ask me anything about projects, skills, or education.");
+    }
+
+    open() {
+        this.widget.classList.add('open');
+        this.widget.setAttribute('aria-modal', 'true');
+        this.input?.focus();
+    }
+
+    close() {
+        this.widget.classList.remove('open');
+        this.widget.setAttribute('aria-modal', 'false');
+    }
+
+    addMessage(role, text) {
+        const el = document.createElement('div');
+        el.className = `ai-message ${role}`;
+        el.textContent = text;
+        this.body.appendChild(el);
+        this.body.scrollTop = this.body.scrollHeight;
+    }
+
+    handleSend() {
+        const q = (this.input?.value || '').trim();
+        if (!q) return;
+        this.addMessage('user', q);
+        this.input.value = '';
+        this.respond(q);
+    }
+
+    // Offline Q&A with simple retrieval over profile facts
+    respond(query) {
+        const q = query.toLowerCase();
+        const best = this.profile.find(({ keywords }) => keywords.some(k => q.includes(k)));
+        const answer = best ? best.answer : "I focus on AI/ML, Python, NLP chatbots, and an attendance app with vision+GPS. Ask about projects, skills, or education.";
+        setTimeout(() => this.addMessage('bot', answer), 400);
+    }
+
+    buildProfileFacts() {
+        return [
+            { keywords: ['project', 'projects', 'work'], answer: 'Key projects: Banking NLP chatbot (Python, ML) and a worker attendance mobile app using image recognition and GPS. Also trained a custom neural network with PyTorch.' },
+            { keywords: ['skill', 'skills', 'strength'], answer: 'Core skills: AI & ML, Python, Software development, Data Science, UI/UX, problem solving, analytics, project management, creativity, adaptability, game development.' },
+            { keywords: ['education', 'college', 'degree', 'cgpa'], answer: 'B.Sc. Computer Science (AI & ML) at NGM College, Pollachi (2022–2025), CGPA 7.59 across 6 semesters.' },
+            { keywords: ['contact', 'email', 'phone', 'reach'], answer: 'You can reach Sivabharathi at rmbharathi521@gmail.com or +91 97157 08383.' },
+            { keywords: ['achievement', 'achievements', 'award'], answer: 'Achievements: multiple AI projects, custom neural network for chatbot tasks, gaming channel management, attendance app with image+location, banking chatbot (NLP).' },
+            { keywords: ['language', 'languages'], answer: 'Languages known: Tamil, English, Basic Hindi.' }
+        ];
+    }
 }
